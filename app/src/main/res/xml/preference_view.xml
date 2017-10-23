@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:title="Mood Selector"
+        android:summary="Show Mood Selector at app launch">
+
+
+    </SwitchPreference>
+    <SwitchPreference
+        android:title="Music Lock"
+        android:summary="Show music controls in lockscreen">
+
+    </SwitchPreference>
+    <SwitchPreference
+        android:title="Unplug to Pause"
+        android:summary="Pause song when headset/earpiece is unplugged">
+
+    </SwitchPreference>
+    <SwitchPreference
+        android:title="Play in Background"
+        android:summary="Continue playback in background"
+        android:defaultValue="true">
+
+    </SwitchPreference>
+    <PreferenceCategory
+        android:title="Information"
+        >
+        <Preference
+            android:title="Privacy Policy">
+        </Preference>
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
