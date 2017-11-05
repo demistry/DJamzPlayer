@@ -1,4 +1,4 @@
-package com.android.djamzplayer.views;
+package com.android.djamzplayer.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;

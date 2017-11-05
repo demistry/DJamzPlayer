@@ -1,4 +1,4 @@
-package com.android.djamzplayer.models;
+package com.android.djamzplayer.utils;
 
 import android.content.SharedPreferences;
 

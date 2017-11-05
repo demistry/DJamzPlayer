@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/img_music_cover"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/no_image" />
+
+    <LinearLayout
+        android:id="@+id/tv_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/img_music_cover"
+        android:layout_toRightOf="@+id/img_music_cover"
+        android:orientation="vertical"
+        >
+
+
+
+        <TextView
+            android:id="@+id/tv_song_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:textAppearance="?android:textAppearanceMedium"
+            tools:text="Itineris tramitems sunt eposs de peritus resistentia." />
+
+        <TextView
+            android:id="@+id/tv_artist_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:textAppearance="?android:textAppearanceSmall"
+            tools:text="Yo-ho-ho" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/img_music_cover"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        tools:text="3.45" />
+
+</RelativeLayout>

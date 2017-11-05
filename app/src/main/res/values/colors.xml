@@ -11,4 +11,5 @@
     <color name="blackBackgroundColor">#EF000000</color>
     <color name="whiteColor">#ffffff</color>
     <color name="primary_text">#000000</color>
+    <color name="colorGray">#FF666666</color>
 </resources>

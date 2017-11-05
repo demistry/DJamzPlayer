@@ -117,4 +117,12 @@
     <string name="password_required">Password is required</string>
     <string name="not_valid_email">Email address is not valid</string>
     <string name="press_to_exit">Press again to exit</string>
+    <string name="the_list_is_empty_image">Add a item icon</string>
+    <string name="its_loney_here">It\'s loney here</string>
+    <string name="no_internet">No internet</string>
+    <string name="cover_photo">Cover photo</string>
+    <string name="create_playlist">Create Playlist</string>
+    <string name="delete">Delete</string>
+    <string name="song_info">Song Info</string>
+    <string name="press_again">Press again to exit</string>
 </resources>
