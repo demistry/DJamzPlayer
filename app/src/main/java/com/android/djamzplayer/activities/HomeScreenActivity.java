@@ -1,5 +1,6 @@
 package com.android.djamzplayer.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -32,9 +33,6 @@ import java.util.ArrayList;
 public class HomeScreenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static final String BACK_STACK_KEY = "back_key";
-    public static final String SETTINGS_FRAG_KEY = "settings_frag";
-    public static final String NOW_PLAYING_FRAG_KEY = "now_playing_frag";
-    public static final String MOOD_SELECT_FRAG_KEY = "mood_frag";
     public static final String HOME_FRAG_KEY = "home_frag";
 
     private static final String POSITION_KEY = "position";
@@ -84,14 +82,11 @@ public class HomeScreenActivity extends AppCompatActivity
 
     }
 
+
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-         if (savedInstanceState != null) {
-            currentPosition = savedInstanceState.getInt(POSITION_KEY);
-            selectItem(currentPosition);
-        } else {
-            setItemChecked(0);
-        }
+    protected void onResume() {
+        super.onResume();
+        setItemChecked(0);
     }
 
     @Override
@@ -105,15 +100,8 @@ public class HomeScreenActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } FragmentManager fragmentManager = getSupportFragmentManager();
-        if (fragmentManager.getBackStackEntryCount() > 0) {
-            super.onBackPressed();
-            fragmentManager.popBackStack(BACK_STACK_KEY, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            currentPosition = 0;
-            setItemChecked(currentPosition);
-
-        } else {
-            if(doubleBackToExitPressedOnce){
+        }
+        else if(doubleBackToExitPressedOnce){
                 super.onBackPressed();
             }
             this.doubleBackToExitPressedOnce = true;
@@ -126,7 +114,7 @@ public class HomeScreenActivity extends AppCompatActivity
                     doubleBackToExitPressedOnce=false;
                 }
             }, 2000);
-        }
+
     }
 
 
@@ -136,13 +124,16 @@ public class HomeScreenActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_home) {
-            selectItem(0);
+
         } else if (id == R.id.nav_now_playing) {
-            selectItem(1);
+            startNewActivity(NowPlayingActivity.class);
+
         } else if (id == R.id.nav_mood_selector) {
-            selectItem(2);
+            startNewActivity(MoodSelectorActivity.class);
+
         } else if (id == R.id.nav_settings) {
-            selectItem(3);
+            startNewActivity(SettingsActivity.class);
+
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_about) {
@@ -156,53 +147,11 @@ public class HomeScreenActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(POSITION_KEY, currentPosition);
-        super.onSaveInstanceState(outState);
+    private void startNewActivity(Class mClass) {
+        Intent intent = new Intent(this, mClass);
+        startActivity(intent);
     }
 
-
-
-    private void selectItem(int position) {
-        currentPosition = position;
-        Fragment fragment;
-        switch (position) {
-            case 0:
-                getSupportFragmentManager().popBackStack(BACK_STACK_KEY, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                break;
-            case 1:
-                fragment = getSupportFragmentManager().findFragmentByTag(NOW_PLAYING_FRAG_KEY);
-                if (fragment != null) {
-                    showFragment(fragment, NOW_PLAYING_FRAG_KEY);
-                } else {
-                    showFragment(NowPlayingFragment.newInstance(), NOW_PLAYING_FRAG_KEY);
-                }
-                break;
-            case 2:
-                fragment = getSupportFragmentManager().findFragmentByTag(MOOD_SELECT_FRAG_KEY);
-                if (fragment != null) {
-                    showFragment(fragment, MOOD_SELECT_FRAG_KEY);
-                } else {
-                    showFragment(MoodSelectMainFragment.newInstance(), MOOD_SELECT_FRAG_KEY);
-                }
-                break;
-            case 3:
-                fragment = getSupportFragmentManager().findFragmentByTag(SETTINGS_FRAG_KEY);
-                if (fragment != null) {
-                    showFragment(fragment, SETTINGS_FRAG_KEY);
-                } else {
-                    showFragment(SettingsFragment.newInstance(), SETTINGS_FRAG_KEY);
-                }
-                break;
-
-
-        }
-
-        setItemChecked(position);
-        drawer.closeDrawer(GravityCompat.START);
-
-    }
 
     private void showFragment(Fragment fragment, String fragmentTag) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

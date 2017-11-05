@@ -12,7 +12,7 @@
         <activity
             android:name=".activities.HomeScreenActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.AuthActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -22,7 +22,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.NowPlayingActivity"></activity>
+        <activity android:name=".activities.NowPlayingActivity" android:parentActivityName=".activities.HomeScreenActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeScreenActivity" />
+        </activity>
+        <activity android:name=".activities.SettingsActivity" android:parentActivityName=".activities.HomeScreenActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeScreenActivity" />
+        </activity>
+        <activity android:name=".activities.MoodSelectorActivity" android:parentActivityName=".activities.HomeScreenActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeScreenActivity" />
+        </activity>
     </application>
 
 </manifest>
