@@ -14,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.djamzplayer.R;
-import com.android.djamzplayer.models.ViewPagerAdapterGenre;
-import com.android.djamzplayer.models.ViewPagerAdapterPlaylist;
-import com.android.djamzplayer.models.ViewPagerAdapterSong;
-import com.android.djamzplayer.models.ViewPagerAdapterArtist;
+import com.android.djamzplayer.adapters.ViewPagerAdapterGenre;
+import com.android.djamzplayer.adapters.ViewPagerAdapterPlaylist;
+import com.android.djamzplayer.adapters.ViewPagerAdapterSong;
+import com.android.djamzplayer.adapters.ViewPagerAdapterArtist;
 import com.android.djamzplayer.utils.BottomNavigationViewHelper;
 
 /**
@@ -42,7 +42,7 @@ public class HomeScreenFragment extends Fragment implements  BottomNavigationVie
         tabLayout.addTab(tabLayout.newTab().setText("Local"));
         tabLayout.addTab(tabLayout.newTab().setText("Online"));
 
-        bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.bottomnav);
+        bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.bottom_bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
@@ -78,6 +78,7 @@ public class HomeScreenFragment extends Fragment implements  BottomNavigationVie
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        //ViewPagerAdapterSong pager = new ViewPagerAdapterSong(getFragmentManager(), tabLayout.getTabCount());
         switch(item.getItemId()){
             case R.id.songs:
                 pagerAdapter = new ViewPagerAdapterSong(getFragmentManager(), tabLayout.getTabCount());

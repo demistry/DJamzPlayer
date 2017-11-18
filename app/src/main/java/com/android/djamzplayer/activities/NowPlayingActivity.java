@@ -1,4 +1,4 @@
-package com.android.djamzplayer;
+package com.android.djamzplayer.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

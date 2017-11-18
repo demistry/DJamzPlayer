@@ -1,5 +1,8 @@
-package com.android.djamzplayer.views;
+package com.android.djamzplayer.activities;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,13 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.android.djamzplayer.R;
+import com.android.djamzplayer.fragments.SongLocalFragment;
 
 public class HomeScreenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-
-    public static final String FRAGMENT_SHARED_PREF = "fragmentPreference";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +24,7 @@ public class HomeScreenActivity extends AppCompatActivity
         setContentView(R.layout.home_screen_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
-
+        setUpPermissions();
 
 
 
@@ -51,6 +48,14 @@ public class HomeScreenActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+    private void setUpPermissions(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+            }}
     }
 
    /* @Override

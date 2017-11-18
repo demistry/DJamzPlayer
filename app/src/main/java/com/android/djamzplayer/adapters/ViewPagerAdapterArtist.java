@@ -1,23 +1,23 @@
-package com.android.djamzplayer.models;
+package com.android.djamzplayer.adapters;
 
 import android.database.DataSetObserver;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.android.djamzplayer.fragments.PlaylistLocalFragment;
-import com.android.djamzplayer.fragments.PlaylistOnlineFragment;
+import com.android.djamzplayer.fragments.ArtistLocalFragment;
+import com.android.djamzplayer.fragments.ArtistOnlineFragment;
 
 /**
  * Created by ILENWABOR DAVID on 12/10/2017.
  */
 
-public class ViewPagerAdapterPlaylist extends FragmentStatePagerAdapter {
+public class ViewPagerAdapterArtist extends FragmentStatePagerAdapter {
     private  Fragment onLineFragment;
     private Fragment localFragment;
     private int tabCOunt;
     public static String FRAG_NO = "FragNo";
-    public ViewPagerAdapterPlaylist(FragmentManager fm, int tabCount){
+    public ViewPagerAdapterArtist(FragmentManager fm, int tabCount){
         super(fm);
         this.tabCOunt = tabCount;
 
@@ -28,9 +28,9 @@ public class ViewPagerAdapterPlaylist extends FragmentStatePagerAdapter {
 
         switch (position){
             case 0:
-                return new PlaylistLocalFragment();
+                return new ArtistLocalFragment();
             case 1:
-                return new PlaylistOnlineFragment();
+                return new ArtistOnlineFragment();
         }
         return null;
     }
