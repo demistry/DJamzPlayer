@@ -3,11 +3,17 @@ package com.android.djamzplayer.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.djamzplayer.R;
+import com.android.djamzplayer.adapters.LocalAdapter;
+import com.android.djamzplayer.models.Song;
+import com.android.djamzplayer.views.EmptyRecyclerView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -15,6 +21,10 @@ import com.android.djamzplayer.R;
  */
 public class ArtistLocalFragment extends Fragment {
 
+    private EmptyRecyclerView emptyRecyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    private LocalAdapter localAdapter;
+    private View emptyView;
 
     public ArtistLocalFragment() {
         // Required empty public constructor
@@ -24,8 +34,16 @@ public class ArtistLocalFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_artist_local, container, false);
+        View view = inflater.inflate(R.layout.fragment_artist_local, container, false);
+        emptyView = view.findViewById(R.id.empty_root);
+        emptyRecyclerView = (EmptyRecyclerView) view.findViewById(R.id.rv_artist_local);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        localAdapter = new LocalAdapter(Song.genDummySongs(100), getContext());
+
+        emptyRecyclerView.setLayoutManager(linearLayoutManager);
+        emptyRecyclerView.setAdapter(localAdapter);
+        emptyRecyclerView.setEmptyView(emptyView);
+        return view;
     }
 
 }

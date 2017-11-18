@@ -11,11 +11,14 @@
         <item name="android:textColorPrimary">@color/whiteColor</item>
         <item name="android:textColorTertiary">@color/whiteColor</item>
         <item name="android:textColorSecondary">@color/whiteColor</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

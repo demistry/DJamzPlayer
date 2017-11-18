@@ -9,33 +9,31 @@ import android.view.ViewGroup;
 
 import com.android.djamzplayer.R;
 
-import com.android.djamzplayer.R;
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NowPlayingFragment extends Fragment {
+public class MoodSelectMainFragment extends Fragment {
 
 
-    public NowPlayingFragment() {
-        // Required empty public constructor
-    }
-
-    public static NowPlayingFragment newInstance() {
+    public static MoodSelectMainFragment newInstance() {
         
         Bundle args = new Bundle();
         
-        NowPlayingFragment fragment = new NowPlayingFragment();
+        MoodSelectMainFragment fragment = new MoodSelectMainFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public MoodSelectMainFragment() {
+        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.now_playing_layout, container, false);
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_mood_select_main, container, false);
     }
 
 }

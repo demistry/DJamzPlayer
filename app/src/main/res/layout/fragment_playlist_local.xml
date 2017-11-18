@@ -4,11 +4,23 @@
     android:layout_height="match_parent"
     tools:context="com.android.djamzplayer.fragments.SongLocalFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
-    </android.support.v7.widget.RecyclerView>
+        <com.android.djamzplayer.views.EmptyRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/rv_playlist_local"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_local_song" />
+
+        <include layout="@layout/empty_state_view_add_new" />
+
+    </FrameLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

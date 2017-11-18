@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="Create Playlist"
+        android:title="@string/create_playlist"
         android:icon="@drawable/ic_action_add">
     </item>
     <item
@@ -9,11 +9,11 @@
 
     </item>
     <item
-        android:title="Delete">
+        android:title="@string/delete">
 
     </item>
     <item
-        android:title="Song Info">
+        android:title="@string/song_info">
 
     </item>
 

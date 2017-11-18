@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.android.djamzplayer.activities.HomeScreenActivity"
+    tools:context="com.android.djamzplayer.views.HomeScreenActivity"
     tools:showIn="@layout/app_bar_home_screen">
    <fragment
        android:id="@+id/home_screen_rootfragment"

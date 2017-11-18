@@ -6,7 +6,7 @@
             android:id="@+id/songs"
             android:title="Songs"
             app:showAsAction="ifRoom"
-            android:icon="@drawable/ic_home_black_24dp"
+            android:icon="@drawable/ic_library_music_black_24dp"
             android:enabled="true">
 
         </item>
@@ -14,7 +14,7 @@
             android:id="@+id/artist"
             android:title="Artists"
             app:showAsAction="ifRoom"
-            android:icon="@drawable/ic_home_black_24dp"
+            android:icon="@drawable/ic_person_black_24dp"
             android:enabled="true">
 
         </item>
@@ -22,7 +22,7 @@
             android:id="@+id/genre"
             android:title="Genre"
             app:showAsAction="ifRoom"
-            android:icon="@drawable/ic_home_black_24dp"
+            android:icon="@drawable/ic_queue_music_black_24dp"
             android:enabled="true">
 
         </item>
@@ -31,7 +31,7 @@
             android:title="Playlist"
             app:showAsAction="ifRoom"
             android:enabled="true"
-            android:icon="@drawable/ic_home_black_24dp">
+            android:icon="@drawable/ic_playlist_play_black_24dp">
 
 
         </item>

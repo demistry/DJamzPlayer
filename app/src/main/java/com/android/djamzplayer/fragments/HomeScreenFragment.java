@@ -3,6 +3,7 @@ package com.android.djamzplayer.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,20 @@ public class HomeScreenFragment extends Fragment implements  BottomNavigationVie
         // Required empty public constructor
     }
 
+    public static HomeScreenFragment newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        HomeScreenFragment fragment = new HomeScreenFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,11 +65,11 @@ public class HomeScreenFragment extends Fragment implements  BottomNavigationVie
 
 
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        pagerAdapter = new ViewPagerAdapterSong(getFragmentManager(), tabLayout.getTabCount());
+        pagerAdapter = new ViewPagerAdapterSong(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(
                 new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(
+        tabLayout.addOnTabSelectedListener(
                 new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
@@ -81,19 +96,19 @@ public class HomeScreenFragment extends Fragment implements  BottomNavigationVie
         //ViewPagerAdapterSong pager = new ViewPagerAdapterSong(getFragmentManager(), tabLayout.getTabCount());
         switch(item.getItemId()){
             case R.id.songs:
-                pagerAdapter = new ViewPagerAdapterSong(getFragmentManager(), tabLayout.getTabCount());
+                pagerAdapter = new ViewPagerAdapterSong(getChildFragmentManager(), tabLayout.getTabCount());
                 viewPager.setAdapter(pagerAdapter);
                 return true;
             case R.id.artist:
-                pagerAdapter = new ViewPagerAdapterArtist(getFragmentManager(), tabLayout.getTabCount());
+                pagerAdapter = new ViewPagerAdapterArtist(getChildFragmentManager(), tabLayout.getTabCount());
                 viewPager.setAdapter(pagerAdapter);
                 return true;
             case R.id.genre:
-                pagerAdapter = new ViewPagerAdapterGenre(getFragmentManager(), tabLayout.getTabCount());
+                pagerAdapter = new ViewPagerAdapterGenre(getChildFragmentManager(), tabLayout.getTabCount());
                 viewPager.setAdapter(pagerAdapter);
                 return true;
             case R.id.playlist:
-                pagerAdapter = new ViewPagerAdapterPlaylist(getFragmentManager(), tabLayout.getTabCount());
+                pagerAdapter = new ViewPagerAdapterPlaylist(getChildFragmentManager(), tabLayout.getTabCount());
                 viewPager.setAdapter(pagerAdapter);
                 return true;
         }
