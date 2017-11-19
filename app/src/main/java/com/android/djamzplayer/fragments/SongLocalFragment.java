@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.android.djamzplayer.R;
 import com.android.djamzplayer.adapters.LocalSongsRecyclerViewAdapter;
@@ -26,7 +27,6 @@ import com.vpaliy.soundcloud.SoundCloudService;
 
 import java.util.ArrayList;
 
-import static com.android.djamzplayer.utils.LocalSongsQueryProvider.BASE_PROVIDER_URI;
 
 
 /**
@@ -37,6 +37,7 @@ public class SongLocalFragment extends Fragment implements LoaderManager.LoaderC
     private RecyclerView songsRecyclerView;
     private ArrayList<Songs> songsArrayList;
     private LocalSongsRecyclerViewAdapter adapter;
+    private RelativeLayout emptyRootView;
     private Cursor cursorLoaded;
     public SongLocalFragment() {
         // Required empty public constructor
@@ -85,7 +86,10 @@ public class SongLocalFragment extends Fragment implements LoaderManager.LoaderC
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_song_local, container, false);
-        songsRecyclerView = (RecyclerView) view.findViewById(R.id.song_local_recyclerview);
+        songsRecyclerView = (RecyclerView) view.findViewById(R.id.rv_song_local);
+        emptyRootView = (RelativeLayout) view.findViewById(R.id.empty_root);
+        emptyRootView.setVisibility(View.GONE);
+
 
         //songsArrayList = new ArrayList<>();
         //songsArrayList = LocalSongsQueryProvider.getLocalSongsArrayList(this.getContext());

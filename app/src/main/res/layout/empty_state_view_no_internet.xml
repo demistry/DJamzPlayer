@@ -20,7 +20,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textAppearance="?android:textAppearanceMedium"
-        android:text="@string/its_loney_here"/>
+        android:text="@string/its_lonely_here"/>
 
 
 </RelativeLayout>

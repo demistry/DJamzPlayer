@@ -9,7 +9,7 @@
         android:id="@+id/empty_list_image"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:contentDescription="@string/its_loney_here"
+        android:contentDescription="@string/its_lonely_here"
         app:srcCompat = "@drawable/ic_add_to_queue_black_24dp"
         android:layout_centerInParent="true"/>
 
@@ -20,7 +20,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textAppearance="?android:textAppearanceMedium"
-        android:text="@string/its_loney_here"/>
+        android:text="@string/its_lonely_here"/>
 
 
 </RelativeLayout>

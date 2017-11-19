@@ -26,13 +26,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
 
+import static com.android.djamzplayer.utils.ContractClass.BASE_PROVIDER_URI;
+
 /**
  * Created by ILENWABOR DAVID on 03/11/2017.
  */
 
 public class  LocalSongsQueryProvider extends CursorLoader {
     private static ArrayList<Songs> songsArrayList;
-    public static final Uri BASE_PROVIDER_URI = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
     private Context context;
     private static Cursor songsCursor;
     private Cursor savedCursor;
@@ -127,8 +128,10 @@ public class  LocalSongsQueryProvider extends CursorLoader {
 
     private static Cursor queryAudioContentProvider(Context context) {
         ContentResolver resolver = context.getContentResolver();
+        String [] projections = {MediaStore.Audio.Media.TITLE, MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Media.ALBUM_ID, MediaStore.Audio.Media._ID, MediaStore.Audio.Media.DURATION};
         return resolver.query(BASE_PROVIDER_URI,
-                null,
+                projections,
                 null,
                 null,
                 null);
@@ -164,7 +167,7 @@ public class  LocalSongsQueryProvider extends CursorLoader {
     public void deliverResult(Cursor cursor) {
         super.deliverResult(cursor);
         savedCursor = cursor;
-        dialog.hide();
+        dialog.dismiss();
     }
 
 

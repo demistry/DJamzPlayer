@@ -4,13 +4,14 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
     >
 
-<com.android.djamzplayer.views.EmptyRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rv_artist_local"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:listitem="@layout/item_local_song" />
+    android:layout_height="match_parent"/>
+    <!--tools:listitem="@layout/item_artist_local" -->
+    />
 
-<include layout="@layout/empty_state_view_add_new" />
+
 
 </FrameLayout>

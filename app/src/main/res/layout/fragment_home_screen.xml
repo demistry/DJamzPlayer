@@ -41,7 +41,7 @@
             android:layout_alignParentBottom="true"
             app:itemBackground="@color/colorAccent"
             app:menu="@menu/bottom_nav_menu"
-            app:itemIconTint="@color/colorPrimaryDark"
+            app:itemIconTint="@drawable/nav_item_tint"
             app:itemTextColor="#fff"
             >
 
