@@ -9,7 +9,7 @@
         android:id="@+id/rv_genre_local"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_local_song" />
+        tools:listitem="@layout/item_grid" />
 
     <include layout="@layout/empty_state_view_add_new" />
 

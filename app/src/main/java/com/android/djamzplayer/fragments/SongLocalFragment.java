@@ -2,13 +2,17 @@ package com.android.djamzplayer.fragments;
 
 
 
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +23,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.android.djamzplayer.R;
+import com.android.djamzplayer.activities.NowPlayingActivity;
+import com.android.djamzplayer.activities.SongsArrayHolder;
 import com.android.djamzplayer.adapters.LocalSongsRecyclerViewAdapter;
 import com.android.djamzplayer.models.Songs;
+import com.android.djamzplayer.utils.ContractClass;
 import com.android.djamzplayer.utils.LocalSongsQueryProvider;
 import com.vpaliy.soundcloud.SoundCloud;
 import com.vpaliy.soundcloud.SoundCloudService;
@@ -32,54 +39,31 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SongLocalFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class SongLocalFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, LocalSongsRecyclerViewAdapter.SongClickedInterface{
     public static final int LOCAL_SONG_LOADER_ID = 0;
     private RecyclerView songsRecyclerView;
     private ArrayList<Songs> songsArrayList;
     private LocalSongsRecyclerViewAdapter adapter;
     private RelativeLayout emptyRootView;
     private Cursor cursorLoaded;
+    private clickedSongFragmentInterface songFragmentInterface;
+
     public SongLocalFragment() {
         // Required empty public constructor
     }
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //SoundCloudService soundCloudService = SoundCloud.create("").createService(this.getContext());
-       // soundCloudService..fetchTrack("").
-        Log.v("Log", "On Create");
-        //getLoaderManager().initLoader(LOCAL_SONG_LOADER_ID, null, this).forceLoad();
+    public interface clickedSongFragmentInterface{
+        void songFromFragment(Songs song, int position);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.v("Log", "On Attach");
+       // this.songFragmentInterface =(clickedSongFragmentInterface) context;
         getLoaderManager().initLoader(LOCAL_SONG_LOADER_ID, null, this).forceLoad();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.v("Log", "On Pause");
-        //getLoaderManager().initLoader(LOCAL_SONG_LOADER_ID, null, this).startLoading();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.v("Log", "On Stop");
-        //getLoaderManager().initLoader(LOCAL_SONG_LOADER_ID, null, this).startLoading();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        //getLoaderManager().initLoader(LOCAL_SONG_LOADER_ID, null, this).startLoading();
-        Log.v("Log", "On Detach");
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,19 +92,41 @@ public class SongLocalFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (cursorLoaded!=null)songsArrayList = LocalSongsQueryProvider.getLocalSongsArrayList(cursorLoaded, this.getContext());
-        else songsArrayList = LocalSongsQueryProvider.getLocalSongsArrayList(data, this.getContext());
+        if (cursorLoaded != null)
+            songsArrayList = LocalSongsQueryProvider.getLocalSongsArrayList(cursorLoaded, this.getContext());
+        else
+            songsArrayList = LocalSongsQueryProvider.getLocalSongsArrayList(data, this.getContext());
+        SongsArrayHolder.getInstance().setArrayList(songsArrayList);
         songsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        adapter = new LocalSongsRecyclerViewAdapter(songsArrayList);
+        adapter = new LocalSongsRecyclerViewAdapter(songsArrayList, this);
         songsRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         this.cursorLoaded = data;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (SongsArrayHolder.getInstance().getArrayList()!=null){
+            getLoaderManager().initLoader(LOCAL_SONG_LOADER_ID, null, this).stopLoading();
+            songsArrayList =  SongsArrayHolder.getInstance().getArrayList();
+            songsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+            adapter = new LocalSongsRecyclerViewAdapter(songsArrayList, this);
+            songsRecyclerView.setAdapter(adapter);
+            //adapter.notifyDataSetChanged();
+        }
+    }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         loader.reset();
     }
 
+    @Override
+    public void onSongClicked(Songs song, int position) {
+        Intent intent = new Intent(getActivity(), NowPlayingActivity.class);
+        intent.putExtra("Position", position);
+        //intent.putParcelableArrayListExtra(ContractClass.PARCELABLE_ARRAY_LIST, songsArrayList);
+        startActivity(intent);
+    }
 }

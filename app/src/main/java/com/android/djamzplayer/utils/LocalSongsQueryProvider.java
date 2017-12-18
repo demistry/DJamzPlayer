@@ -107,7 +107,7 @@ public class  LocalSongsQueryProvider extends CursorLoader {
 //        return arrayList;
 //    }
 
-    private static String getFormattedSongDuration(long songDuration) {
+    public static String getFormattedSongDuration(long songDuration) {
         long totalSeconds = songDuration/1000;
         long seconds = totalSeconds%60;
         long minutes = (totalSeconds%3600)/60;
@@ -141,6 +141,18 @@ public class  LocalSongsQueryProvider extends CursorLoader {
     public Cursor loadInBackground() {
         //return getLocalSongsArrayList();
         return queryAudioContentProvider(context);
+    }
+
+    @Override
+    protected void onStopLoading() {
+        super.onStopLoading();
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onCanceled(Cursor cursor) {
+        super.onCanceled(cursor);
+        //dialog.dismiss();
     }
 
     @Override

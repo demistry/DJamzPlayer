@@ -12,6 +12,10 @@ public class ContractClass {
     public static final Uri BASE_PROVIDER_URI = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
     public static final Uri ARTIST_PROVIDER_URI = MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI;
     public static final Uri GENRE_PROVIDER_BASE_URI = MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI;
+    public static final String SONG_INTENT_EXTRA_NAME = "song";
+    public static final String SONG_INTENT_EXTRA_ARTIST = "artist";
+    public static final String PARCELABLE_ARRAY_LIST = "ParcelableArrayList";
+
     private ContractClass(){
 
     }

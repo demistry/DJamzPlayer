@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.djamzplayer.R;
+import com.android.djamzplayer.activities.SongsArrayHolder;
 import com.android.djamzplayer.adapters.LocalAdapter;
 import com.android.djamzplayer.adapters.LocalArtistsRecyclerViewAdapter;
 import com.android.djamzplayer.models.Artists;
@@ -74,11 +75,25 @@ public class ArtistLocalFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         artistsArrayList = LocalArtistQueryProvider.queryCursor(data);
-        Log.v("Log", "Cursor finished loading with array size of " + String.valueOf(artistsArrayList.size()));
+        SongsArrayHolder.getInstance().setArtistsArrayList(artistsArrayList);
+        //Log.v("Log", "Cursor finished loading with array size of " + String.valueOf(artistsArrayList.size()));
         gridLayoutManager = new GridLayoutManager(this.getContext(),2);
         emptyRecyclerView.setLayoutManager(gridLayoutManager);
         localArtistsAdapter = new LocalArtistsRecyclerViewAdapter(artistsArrayList);
         emptyRecyclerView.setAdapter(localArtistsAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (SongsArrayHolder.getInstance().getArtistsArrayList()!=null){
+            getLoaderManager().initLoader(12, null, this).stopLoading();
+            artistsArrayList = SongsArrayHolder.getInstance().getArtistsArrayList();
+            gridLayoutManager = new GridLayoutManager(this.getContext(),2);
+            emptyRecyclerView.setLayoutManager(gridLayoutManager);
+            localArtistsAdapter = new LocalArtistsRecyclerViewAdapter(artistsArrayList);
+            emptyRecyclerView.setAdapter(localArtistsAdapter);
+        }
     }
 
     @Override
