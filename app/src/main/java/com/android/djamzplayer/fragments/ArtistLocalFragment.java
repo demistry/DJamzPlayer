@@ -10,23 +10,17 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.djamzplayer.R;
-import com.android.djamzplayer.activities.SongsArrayHolder;
-import com.android.djamzplayer.adapters.LocalAdapter;
+import com.android.djamzplayer.singletons.SongsArrayHolder;
 import com.android.djamzplayer.adapters.LocalArtistsRecyclerViewAdapter;
 import com.android.djamzplayer.models.Artists;
-import com.android.djamzplayer.models.Song;
 import com.android.djamzplayer.utils.ContractClass;
 import com.android.djamzplayer.utils.LocalArtistQueryProvider;
-import com.android.djamzplayer.utils.LocalSongsQueryProvider;
-import com.android.djamzplayer.views.EmptyRecyclerView;
 
 import java.util.ArrayList;
 

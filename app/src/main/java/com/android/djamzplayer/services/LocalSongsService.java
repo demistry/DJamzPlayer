@@ -18,7 +18,9 @@ import android.widget.Toast;
 
 import com.android.djamzplayer.activities.NowPlayingActivity;
 import com.android.djamzplayer.models.Songs;
+import com.android.djamzplayer.singletons.UpdateNowPlayingViews;
 import com.android.djamzplayer.utils.ContractClass;
+import com.android.djamzplayer.utils.UpdateNowPlayingUI;
 
 
 import java.io.IOException;
@@ -29,7 +31,8 @@ import java.util.ArrayList;
  */
 
 public class LocalSongsService extends Service implements MediaPlayer.OnCompletionListener, MediaPlayer.OnErrorListener,
-                                                            MediaPlayer.OnPreparedListener, MediaPlayer.OnSeekCompleteListener{
+                                                            MediaPlayer.OnPreparedListener, MediaPlayer.OnSeekCompleteListener
+{
     //private SimpleExoPlayer exoPlayer;
     private MediaPlayer mediaPlayer;
     private ArrayList<Songs> songsArrayList;
@@ -77,6 +80,8 @@ public class LocalSongsService extends Service implements MediaPlayer.OnCompleti
     @Override
     public boolean onUnbind(Intent intent) {
         //mState = State.Stopped;
+        //mediaPlayer.stop();
+        //mediaPlayer.release();
         return false;
     }
 
@@ -87,7 +92,7 @@ public class LocalSongsService extends Service implements MediaPlayer.OnCompleti
     public void initializeMediaPlayer(){
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
-        mediaPlayer.setLooping(true);
+        //mediaPlayer.setLooping(true);
         mediaPlayer.setOnCompletionListener(this);
         mediaPlayer.setOnErrorListener(this);
         mediaPlayer.setOnPreparedListener(this);
@@ -105,9 +110,10 @@ public class LocalSongsService extends Service implements MediaPlayer.OnCompleti
             long songId = currentSong.getSongId();
             Uri songUri = ContentUris.withAppendedId(ContractClass.BASE_PROVIDER_URI, songId);
             try{
+
                 mediaPlayer.setDataSource(getApplicationContext(), songUri);
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
+                mediaPlayer.prepare();
+                mediaPlayer.start();
 
             }
             catch (IOException e){
@@ -141,6 +147,7 @@ public class LocalSongsService extends Service implements MediaPlayer.OnCompleti
             playSong(songPosition);
             Toast.makeText(getApplicationContext(), "No more previous Song", Toast.LENGTH_SHORT).show();
         }
+        mState = State.Playing;
     }
     public void playNext(){
         songPosition++;
@@ -151,7 +158,8 @@ public class LocalSongsService extends Service implements MediaPlayer.OnCompleti
             songPosition=0;
             playSong(songPosition);
         }
-        NowPlayingActivity.setViews(songPosition);
+        UpdateNowPlayingViews.getInstance().setQueuedSongPosition(songPosition);
+        mState = State.Playing;
     }
     public int returnCurrentSong(){
         return songPosition;
@@ -211,6 +219,7 @@ public class LocalSongsService extends Service implements MediaPlayer.OnCompleti
     @Override
     public void onPrepared(MediaPlayer mp) {
         mp.start();
+        //mediaPlayer.start();
         mState = State.Playing;
     }
 

@@ -1,4 +1,4 @@
-package com.android.djamzplayer.activities;
+package com.android.djamzplayer.singletons;
 
 import com.android.djamzplayer.models.Artists;
 import com.android.djamzplayer.models.Songs;

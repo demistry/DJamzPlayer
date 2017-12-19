@@ -18,6 +18,8 @@ import android.widget.ToggleButton;
 
 import com.android.djamzplayer.R;
 import com.android.djamzplayer.models.Songs;
+import com.android.djamzplayer.singletons.SongsArrayHolder;
+import com.android.djamzplayer.singletons.UpdateNowPlayingViews;
 import com.android.djamzplayer.utils.LocalSongsQueryProvider;
 import com.android.djamzplayer.services.LocalSongsService;
 
@@ -32,13 +34,13 @@ public class NowPlayingActivity extends AppCompatActivity implements ServiceConn
     private Intent playSongIntent;
     private int songPosition;
     private boolean isMusicBound = false;
-    private static TextView songName;
-    private static TextView artistName;
+    private TextView songName;
+    private TextView artistName;
     private TextView currentPositionTextView;
-    private static TextView maxPositionTextView;
-    private static ImageView albumCover;
+    private TextView maxPositionTextView;
+    private ImageView albumCover;
     private ImageView nextButton;
-    private ImageView previousButton;
+    private ImageView previousButton, loopButton, shuffleButton;
     private ToggleButton play_pauseButton;
     private SeekBar seekBar;
     private static ArrayList<Songs> songsArrayList;
@@ -59,6 +61,8 @@ public class NowPlayingActivity extends AppCompatActivity implements ServiceConn
         albumCover = (ImageView) findViewById(R.id.now_playing_album_cover);
         nextButton = (ImageView) findViewById(R.id.next_button);
         previousButton = (ImageView) findViewById(R.id.previous_button);
+        loopButton = (ImageView) findViewById(R.id.looping_button);
+        shuffleButton = (ImageView) findViewById(R.id.shuffle_button);
         play_pauseButton = (ToggleButton) findViewById(R.id.playpause_button);
         seekBar = (SeekBar) findViewById(R.id.song_progress);
 
@@ -71,12 +75,14 @@ public class NowPlayingActivity extends AppCompatActivity implements ServiceConn
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(play_pauseButton.isChecked()){
+                        if(localSongsService.getPlayingState()){
                             localSongsService.pauseSong();
+                            play_pauseButton.setChecked(true);
                             //playButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_circle_outline_black_48dp));
                         }
                         else{
                             localSongsService.playSong(localSongsService.returnCurrentSong());
+                            play_pauseButton.setChecked(false);
                             //playButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_circle_outline_black_24dp));
                         }
 
@@ -88,6 +94,9 @@ public class NowPlayingActivity extends AppCompatActivity implements ServiceConn
                     @Override
                     public void onClick(View v) {
                         localSongsService.playNext();
+                        play_pauseButton.setChecked(false);
+//                        UpdateNowPlayingUI.setViews(localSongsService.returnCurrentSong(), songName, artistName, maxPositionTextView,
+//                                albumCover, songsArrayList);
                         setViews(localSongsService.returnCurrentSong());
                     }
                 }
@@ -97,6 +106,9 @@ public class NowPlayingActivity extends AppCompatActivity implements ServiceConn
                     @Override
                     public void onClick(View v) {
                         localSongsService.playPrev();
+                        play_pauseButton.setChecked(false);
+//                        UpdateNowPlayingUI.setViews(localSongsService.returnCurrentSong(), songName, artistName, maxPositionTextView,
+//                                albumCover, songsArrayList);
                         setViews(localSongsService.returnCurrentSong());
                     }
                 }
@@ -105,10 +117,18 @@ public class NowPlayingActivity extends AppCompatActivity implements ServiceConn
         Bundle bundle = getIntent().getExtras();
         songPosition = bundle.getInt("Position");
         songsArrayList = SongsArrayHolder.getInstance().getArrayList();
+
         songName.setText(songsArrayList.get(songPosition).getSongTitle());
+        UpdateNowPlayingViews.getInstance().setSongName(songName);
+
         artistName.setText(songsArrayList.get(songPosition).getArtistName());
+        UpdateNowPlayingViews.getInstance().setArtistName(artistName);
+
         maxPositionTextView.setText(songsArrayList.get(songPosition).getSongDuration());
+        UpdateNowPlayingViews.getInstance().setMaxPositionTextView(maxPositionTextView);
+
         albumCover.setImageBitmap(songsArrayList.get(songPosition).getAlbumCover());
+        UpdateNowPlayingViews.getInstance().setAlbumCover(albumCover);
     }
 
     @Override
@@ -121,11 +141,20 @@ public class NowPlayingActivity extends AppCompatActivity implements ServiceConn
         }
     }
 
-    public static void setViews(int currentPosition){
-        songName.setText(songsArrayList.get(currentPosition).getSongTitle());
-        artistName.setText(songsArrayList.get(currentPosition).getArtistName());
-        maxPositionTextView.setText(songsArrayList.get(currentPosition).getSongDuration());
-        albumCover.setImageBitmap(songsArrayList.get(currentPosition).getAlbumCover());
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //stopService(playSongIntent);
+        //localSongsService = null;
+        unbindService(this);
+
+    }
+
+    public void setViews(int currentPosition){
+            songName.setText(songsArrayList.get(currentPosition).getSongTitle());
+            artistName.setText(songsArrayList.get(currentPosition).getArtistName());
+            maxPositionTextView.setText(songsArrayList.get(currentPosition).getSongDuration());
+            albumCover.setImageBitmap(songsArrayList.get(currentPosition).getAlbumCover());
     }
 
     @Override
@@ -137,7 +166,6 @@ public class NowPlayingActivity extends AppCompatActivity implements ServiceConn
         localSongsService.playSong(songPosition);
         isMusicBound = true;
         seekBar.setMax(100);
-        //int maxposition = localSongsService.getMaxDurationOfSong()/1000;
         int playbackposition = getProgressPercentage(localSongsService.getCurrentPlaybackPosition(), localSongsService.getMaxDurationOfSong());
         seekBar.setProgress(playbackposition);
         currentPositionTextView.setText(LocalSongsQueryProvider.getFormattedSongDuration(localSongsService.getCurrentPlaybackPosition()));
@@ -193,10 +221,19 @@ public class NowPlayingActivity extends AppCompatActivity implements ServiceConn
         Log.d("Tag", "Current time position of Seekbar "+seekBar.getProgress());
         Log.d("Tag", "progress of Seekbar "+progress);
         Log.d("Tag", "progress multiplier of Seekbar "+((progress*localSongsService.getMaxDurationOfSong())/100));
-        if(fromUser){
+        if(fromUser && localSongsService.getPlayingState()){
             localSongsService.seekProgressOfSong((double)((progress*localSongsService.getMaxDurationOfSong())/100));
             currentPositionTextView.setText(LocalSongsQueryProvider.getFormattedSongDuration(progress*1000));
             seekBar.setProgress(progress);
+            play_pauseButton.setChecked(false);
+        }
+        else {
+            if (fromUser && !localSongsService.getPlayingState()){
+                //localSongsService.seekProgressOfSong((double)((progress*localSongsService.getMaxDurationOfSong())/100));
+                currentPositionTextView.setText(LocalSongsQueryProvider.getFormattedSongDuration(progress*1000));
+                seekBar.setProgress(progress);
+                play_pauseButton.setChecked(true);
+            }
         }
     }
 

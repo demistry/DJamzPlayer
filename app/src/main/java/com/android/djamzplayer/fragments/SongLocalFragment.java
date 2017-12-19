@@ -2,15 +2,10 @@ package com.android.djamzplayer.fragments;
 
 
 
-import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -24,13 +19,10 @@ import android.widget.RelativeLayout;
 
 import com.android.djamzplayer.R;
 import com.android.djamzplayer.activities.NowPlayingActivity;
-import com.android.djamzplayer.activities.SongsArrayHolder;
+import com.android.djamzplayer.singletons.SongsArrayHolder;
 import com.android.djamzplayer.adapters.LocalSongsRecyclerViewAdapter;
 import com.android.djamzplayer.models.Songs;
-import com.android.djamzplayer.utils.ContractClass;
 import com.android.djamzplayer.utils.LocalSongsQueryProvider;
-import com.vpaliy.soundcloud.SoundCloud;
-import com.vpaliy.soundcloud.SoundCloudService;
 
 import java.util.ArrayList;
 
