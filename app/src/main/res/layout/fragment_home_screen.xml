@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.android.djamzplayer.fragments.HomeScreenFragment">
+    tools:context="com.android.djamzplayer.com.djamzplayer.djamzplayer.fragments.HomeScreenFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

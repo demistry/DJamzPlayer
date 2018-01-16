@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     >
 
-    <com.android.djamzplayer.views.EmptyRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.djamzplayer.android.views.EmptyRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/rv_song_local"
         android:layout_width="match_parent"

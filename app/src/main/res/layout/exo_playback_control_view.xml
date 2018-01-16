@@ -55,23 +55,24 @@
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
         >
-        <ImageView
+        <Button
             android:id="@+id/looping_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
+            android:background="@drawable/loop_button_selector"
             app:srcCompat="@drawable/ic_repeat_black_24dp"/>
 
         <ImageView
             android:id="@+id/previous_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_skip_previous_black_24dp"
             android:layout_weight="1"
             />
         <ToggleButton
             android:id="@+id/playpause_button"
-            android:layout_width="12dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="2dp"
@@ -81,19 +82,20 @@
             app:srcCompat="@drawable/ic_pause_circle_outline_black_24dp"/>
         <ImageView
             android:id="@+id/next_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="Next"
             style="@style/ExoMediaButton"
             app:srcCompat="@drawable/ic_skip_next_black_24dp"/>
-        <ImageView
+        <Button
             android:id="@+id/shuffle_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             style="@style/ExoMediaButton"
-            app:srcCompat="@drawable/ic_shuffle_black_24dp"/>
+            android:background="@drawable/shuffle_button_selector"
+            />
     </LinearLayout>
 
 </LinearLayout>

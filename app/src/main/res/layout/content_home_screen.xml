@@ -10,7 +10,7 @@
     tools:showIn="@layout/app_bar_home_screen">
    <fragment
        android:id="@+id/home_screen_rootfragment"
-       android:name="com.android.djamzplayer.fragments.HomeScreenFragment"
+       android:name="com.djamzplayer.android.fragments.HomeScreenFragment"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        tools:layout="@layout/fragment_home_screen" />
